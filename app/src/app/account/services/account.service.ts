@@ -1,0 +1,28 @@
+import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { catchError, map, Observable } from 'rxjs';
+import { BaseService } from 'src/app/services/base.service';
+import { User } from '../models/User';
+
+@Injectable()
+export class AccountService extends BaseService
+{
+  constructor(private http : HttpClient)
+  {
+    super();
+  }
+
+  registerUser(user: User) : Observable<number>
+  {
+    let response = this.http
+      .post(this.UrlService + 'create-account', user, this.GetJsonHeader())
+      .pipe(map((s: HttpResponse<HttpStatusCode>) => s.status), catchError(this.serviceError))
+
+    return response;
+  }
+
+  login(user: User)
+  {
+    
+  }
+}
