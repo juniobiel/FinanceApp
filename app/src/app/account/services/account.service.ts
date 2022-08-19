@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpStatusCode } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { BaseService } from 'src/app/services/base.service';
@@ -12,12 +12,15 @@ export class AccountService extends BaseService
     super();
   }
 
-  registerUser(user: User) : Observable<number>
+  registerUser(user: User) : Observable<Object>
   {
     let response = this.http
-      .post(this.UrlService + 'create-account', user, this.GetJsonHeader())
-      .pipe(map((s: HttpResponse<HttpStatusCode>) => s.status), catchError(this.serviceError))
-
+      .post(this.UrlService + 'create-account', user, {
+        headers: this.GetJsonHeader().headers,
+        observe: 'body',
+        responseType: 'text'
+      })
+      .pipe(catchError(this.serviceError));
     return response;
   }
 

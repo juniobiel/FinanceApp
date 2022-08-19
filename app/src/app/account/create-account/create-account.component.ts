@@ -88,7 +88,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
     this.createAccountForm.reset();
     this.errors = [];
     console.log(response)
-    this.router.navigate(['../login'])
+    this.router.navigate(['account/login'])
   }
 
   processFail(fail : any)
