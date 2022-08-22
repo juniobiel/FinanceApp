@@ -1,11 +1,12 @@
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { throwError } from "rxjs";
+import { environment } from "src/environments/environment";
 import { LocalStorageUtils } from "../Utils/localstorage";
 
 export abstract class BaseService
 {
   public LocalStorage = new LocalStorageUtils();
-  protected UrlService: string = "https://localhost:7126/api/";
+  protected UrlService: string = environment.urlApi;
 
   protected GetJsonHeader()
   {

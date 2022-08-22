@@ -19,7 +19,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
   createAccountForm: FormGroup;
   user: User;
   validationMessages : ValidationMessages;
-  genericValidatior: GenericValidator;
+  genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
   constructor(private fb : FormBuilder, private accountService: AccountService,
@@ -42,7 +42,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
       }
     };
 
-    this.genericValidatior = new GenericValidator(this.validationMessages);
+    this.genericValidator = new GenericValidator(this.validationMessages);
   }
   
   ngOnInit(): void 
@@ -64,7 +64,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
     .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
     
     merge(...controlBlurs).subscribe( () => {
-      this.displayMessage = this.genericValidatior.processMessages(this.createAccountForm);
+      this.displayMessage = this.genericValidator.processMessages(this.createAccountForm);
     })
   }
 
@@ -87,12 +87,15 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
   {
     this.createAccountForm.reset();
     this.errors = [];
-    console.log(response)
+
+    this.accountService.LocalStorage.saveUserLocalData(response);
+    
+
     this.router.navigate(['account/login'])
   }
 
   processFail(fail : any)
   {
-    this.errors = fail.error.errors
+    this.errors = fail.error.errors;
   }
 }
