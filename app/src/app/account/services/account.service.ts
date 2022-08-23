@@ -24,10 +24,12 @@ export class AccountService extends BaseService
     return response;
   }
 
-  login(user: User)
+  login(user: User) : Observable<Object>
   {
     let response = this.http
-    .post(this.UrlService + 'sign-in', user, this.GetJsonHeader())
+    .post(this.UrlService + 'sign-in', user, {
+      headers: this.GetJsonHeader().headers,
+    })
     .pipe(
       map(this.extractData),
       catchError(this.serviceError));

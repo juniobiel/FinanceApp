@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { AccountAppComponent } from './account.app.component';
 
 import { AccountService } from './services/account.service';
+import { AccountGuard } from './services/account.guard';
 
 
 @NgModule({
@@ -31,11 +32,12 @@ import { AccountService } from './services/account.service';
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,
-    NarikCustomValidatorsModule
+    NarikCustomValidatorsModule,
   ],
   providers:
   [
-    AccountService
+    AccountService,
+    AccountGuard
   ]
 })
 export class AccountModule { }

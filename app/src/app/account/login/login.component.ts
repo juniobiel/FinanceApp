@@ -1,12 +1,17 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { fromEvent, merge, Observable } from 'rxjs';
+
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { CustomValidators } from '@narik/custom-validators';
-import { fromEvent, merge, Observable } from 'rxjs';
+
 import { GenericValidator, ValidationMessages } from 'src/app/Utils/generic-form-validation';
-import { User } from '../models/User';
 import { AccountService } from '../services/account.service';
+import { User } from '../models/User';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageUtils } from 'src/app/Utils/localstorage';
 
 @Component({
   selector: 'app-login',
@@ -23,10 +28,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
   displayMessage = {};
   user: User;
   errors: any[] = [];
+  localStorageUtils = new LocalStorageUtils();
 
   constructor(private fb : FormBuilder, 
     private accountService: AccountService, 
-    private router : Router ) {
+    private router : Router,
+    private toastr: ToastrService ) {
 
     this.validationMessages = 
     {
@@ -80,12 +87,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
   {
     this.loginForm.reset();
     this.errors = [];
+    this.localStorageUtils.saveUserLocalData(response);
     this.router.navigate(['home']);
   }
 
   processFail(fail : any)
   {
-    this.errors = fail.error.errors;
+    this.toastr.error('Usuário ou senha incorretos', 'Ocorreu um erro!!', {
+      closeButton: true,
+      positionClass: 'toast-top-full-width'
+    });
+    this.loginForm.reset();
   }
 
 }

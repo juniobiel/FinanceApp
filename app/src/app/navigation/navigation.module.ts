@@ -6,6 +6,8 @@ import { HomeComponent } from "./home/home.component";
 import { FooterComponent } from "./footer/footer.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MenuUserComponent } from "./menu-user/menu-user.component";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule(
   {
@@ -14,20 +16,22 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
       MenuComponent,
       HomeComponent,
       FooterComponent,
-      NotFoundComponent
+      NotFoundComponent,
+      MenuUserComponent
     ],
     imports: 
     [
       CommonModule,
       RouterModule,
-      NgbModule
+      NgbModule,
+      FontAwesomeModule,
     ],
     exports: 
     [
       MenuComponent,
       HomeComponent,
       FooterComponent,
-      NotFoundComponent
+      NotFoundComponent,
     ]
   }
 )

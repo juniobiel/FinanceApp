@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren } from '@ang
 import { FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomValidators } from '@narik/custom-validators';
+import { ToastrService } from 'ngx-toastr';
 import { fromEvent, merge, Observable } from 'rxjs';
 import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/Utils/generic-form-validation';
 import { User } from '../models/User';
@@ -21,9 +22,12 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
   validationMessages : ValidationMessages;
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
+  NotSavedChanges : boolean;
 
-  constructor(private fb : FormBuilder, private accountService: AccountService,
-    private router : Router) 
+  constructor(private fb : FormBuilder, 
+    private accountService: AccountService,
+    private router : Router,
+    private toastr: ToastrService) 
   { 
     this.validationMessages = 
     {
@@ -65,6 +69,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
     
     merge(...controlBlurs).subscribe( () => {
       this.displayMessage = this.genericValidator.processMessages(this.createAccountForm);
+      this.NotSavedChanges = true;
     })
   }
 
@@ -80,6 +85,7 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
           error : (fail) => this.processFail(fail),
         }
       );
+      this.NotSavedChanges = false;
     }
   }
   
@@ -88,14 +94,25 @@ export class CreateAccountComponent implements OnInit, AfterViewInit {
     this.createAccountForm.reset();
     this.errors = [];
 
-    this.accountService.LocalStorage.saveUserLocalData(response);
-    
-
-    this.router.navigate(['account/login'])
+    let toast = this.toastr.success('Sua conta foi cadastrada com sucesso, faça o login!', 'Cadastrado!', {
+      closeButton: true,
+      positionClass: 'toast-top-full-width'
+    });
+    if(toast)
+    {
+      toast.onHidden.subscribe(() => {
+        this.router.navigate(['account/login']);
+      })
+    }
   }
 
   processFail(fail : any)
   {
-    this.errors = fail.error.errors;
+    this.errors = fail.error.split(',');
+    this.toastr.error('Não foi possível concluir o cadastro!', 'Ocorreu um erro!!', {
+      closeButton: true,
+      positionClass: 'toast-top-full-width'
+    });
+    
   }
 }

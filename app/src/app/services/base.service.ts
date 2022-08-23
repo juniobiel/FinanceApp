@@ -19,7 +19,7 @@ export abstract class BaseService
 
   protected extractData(response : any)
   {
-    return response.data || {};
+    return response || {};
   }
 
   protected serviceError(response: Response | any) 
@@ -34,10 +34,7 @@ export abstract class BaseService
         response.error.errors = customError;
       }
     }
-
-
-    console.error(response);
-
-    return throwError(() => new Error(response));
+    
+    return throwError(response);
   }
 }

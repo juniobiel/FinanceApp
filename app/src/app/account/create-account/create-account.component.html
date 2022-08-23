@@ -1,6 +1,7 @@
 <div class="container main-container">
   
   <div class="p-5 position-relative w-100 text-center d-flex justify-content-center">
+    
     <form class="text-center w-75 start-50 d-flex-row justify-content-center" novalidate (ngSubmit)="addAccount()" [formGroup]="createAccountForm">
       <h3 class="mb-3">formulário de cadastro</h3>
       <hr  class="mb-5"/>
@@ -48,6 +49,7 @@
           <button class="btn btn-outline-success me-3 px-4" type="submit" id="Register" [disabled]="!createAccountForm.valid" >cadastrar</button>
           <button class="btn btn-outline-danger ms-3 px-5" type="reset">limpar</button>
         </div>
+        <a [routerLink]="['/account/login']" class="link-primary"> < voltar</a>
       </div>
     </form>
   </div>

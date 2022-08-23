@@ -1,6 +1,6 @@
 export class LocalStorageUtils
 {
-  public GetUser() 
+  public getUser() 
   {
     return JSON.parse(localStorage.getItem('api.user'));
   }
@@ -17,7 +17,7 @@ export class LocalStorageUtils
     localStorage.removeItem('api.token');
   }
 
-  public GetUserToken() : string 
+  public getUserToken() : string 
   {
     return localStorage.getItem('api.token');
   }
