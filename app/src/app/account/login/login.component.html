@@ -1,0 +1,40 @@
+<div class="container main-container">
+  <div class="position relative align-middle">
+    <div class="card position-absolute top-50 start-50 translate-middle py-3 px-5">
+      <form novalidate (ngSubmit)="loginAccount()" [formGroup]="loginForm">
+        <div class="">
+          <h3 class="card-title text-center">efetuar login</h3>
+        </div>
+        <div class="mx-2">
+          <div class="text-center m-4 p-4 rounded-circle border border-2 border-dark">
+            <fa-icon [icon]="faUser" size="6x"></fa-icon>
+          </div>
+        </div>
+        
+        <div class="my-1">
+          <label class="form-label" for="email">e-mail</label>
+          <input class="form-control" id="email" type="email" placeholder="example@example.com" formControlName="email" [ngClass]="{'is-invalid': displayMessage['email'] }"/>
+          <span class="text-danger" *ngIf="displayMessage['email']">
+            <p [innerHTML]="displayMessage['email']"></p>
+          </span>
+        </div>
+        <div class="my-1">
+          <label class="form-label" for="password">senha</label>
+          <input type="password" class="form-control" id="password"  formControlName="password" [ngClass]="{'is-invalid': displayMessage['password'] }" />
+          <span class="text-danger" *ngIf="displayMessage['password']">
+            <p [innerHTML]="displayMessage['password']"></p>
+          </span>
+        </div>
+
+        <div class="d-inline-flex mt-3">
+          <div class="d-inline ms-0">
+            <button class="btn btn-outline-success d-inline px-4 text-center align-middle" type="submit" id="Login" [disabled]="!loginForm.valid">Entrar</button>
+          </div>
+          <div class="d-inline ms-5 ">
+            <a class="text-center align-middle link-primary" [routerLink]="['/account/newAccount']">Cadastrar</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

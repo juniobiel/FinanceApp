@@ -1,0 +1,57 @@
+<div class="container main-container">
+  
+  <div class="p-5 position-relative w-100 text-center d-flex justify-content-center">
+    
+    <form class="text-center w-75 start-50 d-flex-row justify-content-center" novalidate (ngSubmit)="addAccount()" [formGroup]="createAccountForm">
+      <h3 class="mb-3">formulário de cadastro</h3>
+      <hr  class="mb-5"/>
+      <div class="alert alert-danger" *ngIf="errors.length > 0">
+        <h3 id="msgRetorno">Alguma coisa deu errado!</h3>
+        <ul>
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+      <div class="form-group row mb-3">
+        <div class="d-inline-flex justify-content-center">
+          <label for="email" class="col-sm-2 col-form-label">e-mail</label>
+          <div>
+            <input class="col-sm-4 form-control form-control-sm" id="email" type="email" placeholder="example@example.com" formControlName="email" [ngClass]="{'is-invalid': displayMessage['email'] }">
+            <span class="text-danger" *ngIf="displayMessage['email']">
+              <p [innerHTML]="displayMessage['email']"></p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <div class="d-inline-flex justify-content-center">
+          <label for="passwor" class="col-sm-2 col-form-label">senha</label>
+          <div>
+            <input class="col-sm-4 form-control form-control-sm" id="password" type="password"  formControlName="password" [ngClass]="{'is-invalid': displayMessage['password'] }"/>
+            <span class="text-danger" *ngIf="displayMessage['password']">
+              <p [innerHTML]="displayMessage['password']"></p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <div class="d-inline-flex justify-content-center">
+          <label for="confirmPassword" class="col-sm-2 col-form-label">repita a senha</label>
+          <div>
+            <input class="col-sm-4 form-control form-control-sm" id="confirmPassword" type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid': displayMessage['confirmPassword'] }" />
+            <span class="text-danger" *ngIf="displayMessage['confirmPassword']">
+              <p [innerHTML]="displayMessage['confirmPassword']"></p>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3 justify-content-center">
+        <div class="col-sm-5 d-inline-flex justify-content-around w-25">
+          <button class="btn btn-outline-success me-3 px-4" type="submit" id="Register" [disabled]="!createAccountForm.valid" >cadastrar</button>
+          <button class="btn btn-outline-danger ms-3 px-5" type="reset">limpar</button>
+        </div>
+        <a [routerLink]="['/account/login']" class="link-primary"> < voltar</a>
+      </div>
+    </form>
+  </div>
+  
+</div>

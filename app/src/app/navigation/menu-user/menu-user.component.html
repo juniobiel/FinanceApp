@@ -1,0 +1,11 @@
+<ul [ngSwitch]="userLogged()" class="navbar-nav">
+  <li *ngSwitchCase="true" class="nav-item" style="padding-right: 30px;">
+    <a class="nav-link text-dark" id="userGreeting" href="javascript:void(0)">{{ email }}</a>
+  </li>
+  <div class="vr"></div>
+  <li *ngSwitchCase="true" class="nav-item">
+    <a class="nav-link text-dark" href="javascript:void(0)" (click)="logout()">
+      <fa-icon [icon]="faSignOutAlt" size="1x"></fa-icon>
+    </a>
+  </li>
+</ul>
