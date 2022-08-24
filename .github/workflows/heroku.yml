@@ -25,8 +25,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        context: ./app
-        file: ./Dockerfile
+        context: app
         push: true
         tags: gabrieljunio/finance-app:latest
         
