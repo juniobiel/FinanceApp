@@ -26,7 +26,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./Dockerfile
+        file: ./app/Dockerfile
         push: true
         tags: gabrieljunio/finance-app:latest
         
@@ -43,4 +43,5 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_API_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          appdir: "app"
           usedocker: true
