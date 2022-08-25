@@ -12,5 +12,6 @@ RUN $(npm bin)/ng build --configuration production
 FROM nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=ng-builder /app/dist/src /usr/share/nginx/html
-#EXPOSE 80
-CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+EXPOSE 80
+# Heroku config
+# CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
